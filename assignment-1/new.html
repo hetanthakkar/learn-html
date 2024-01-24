@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+
+        .sidebar a.active {
+            background-color: grey;
+            color: black;
+            /* Set the text color for better visibility */
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+            color: white;
+        }
+
+        div.content {
+            margin-left: 10px;
+            /* padding: 1px 16px; */
+            /* height: 1000px; */
+        }
+
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.content {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }
+
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+
+        .top-banner {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+        }
+
+        .title {
+            font-weight: bold;
+            margin: 0;
+            margin-left: 100px;
+            margin-right: 20px;
+        }
+
+        .tagline {
+            font-style: italic;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 20px;
+        }
+
+        .button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            justify-content: space-between;
+        }
+
+        .question-count {
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            margin-right: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #ddd;
+            border-radius: 5px;
+            padding: 2px 5px;
+            margin-right: 5px;
+        }
+
+        .action-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 3.5rem;
+            line-height: 3.5rem;
+            background-color: #ccc;
+        }
+
+        .nav-link:hover {
+            transition: all 0.4s;
+        }
+
+        .nav-link-collapse:after {
+            float: right;
+            content: '\f067';
+            font-family: 'FontAwesome';
+        }
+
+        .nav-link-show:after {
+            float: right;
+            content: '\f068';
+            font-family: 'FontAwesome';
+        }
+
+        .nav-item ul.nav-second-level {
+            padding-left: 0;
+        }
+
+        .nav-item ul.nav-second-level>.nav-item {
+            padding-left: 20px;
+        }
+
+        @media (min-width: 992px) {
+            .sidenav {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 230px;
+                height: calc(100vh - 3.5rem);
+                margin-top: 3.5rem;
+                background: #343a40;
+                box-sizing: border-box;
+                /* border-top: 1px solid rgba(0, 0, 0, 0.3); */
+            }
+
+            .navbar-expand-lg .sidenav {
+                flex-direction: column;
+            }
+
+            .content-wrapper {
+                margin-left: 230px;
+            }
+
+            .footer {
+                width: calc(100% - 230px);
+                margin-left: 230px;
+            }
+        }
+
+
+
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            /* padding-top: 4.5rem; */
+            margin-bottom: 4.5rem;
+        }
+
+        .top-banner {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+        }
+
+        .title {
+            font-weight: bold;
+            margin: 0;
+            margin-right: 20px;
+        }
+
+        .tagline {
+            font-style: italic;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 20px;
+        }
+
+        .button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            justify-content: space-between;
+        }
+
+        .question-count {
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            margin-right: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #ddd;
+            border-radius: 5px;
+            padding: 2px 5px;
+            margin-right: 5px;
+        }
+
+        .action-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 3.5rem;
+            line-height: 3.5rem;
+            background-color: #ccc;
+        }
+
+        .nav-link:hover {
+            transition: all 0.4s;
+        }
+
+        .nav-link-collapse:after {
+            float: right;
+            content: '\f067';
+            font-family: 'FontAwesome';
+        }
+
+        .nav-link-show:after {
+            float: right;
+            content: '\f068';
+            font-family: 'FontAwesome';
+        }
+
+        .nav-item ul.nav-second-level {
+            padding-left: 0;
+        }
+
+        .nav-item ul.nav-second-level>.nav-item {
+            padding-left: 20px;
+        }
+
+        @media (min-width: 992px) {
+            .sidenav {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 230px;
+                height: calc(100vh - 3.5rem);
+                margin-top: 3.5rem;
+                background: #343a40;
+                box-sizing: border-box;
+                /* border-top: 1px solid rgba(0, 0, 0, 0.3); */
+            }
+
+            .navbar-expand-lg .sidenav {
+                flex-direction: column;
+            }
+
+            .content-wrapper {
+                margin-left: 230px;
+            }
+
+
+        }
+
+        .top-banner {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            margin-right: 20px;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .search-button {
+            padding: 6px 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        a[href="#home"]:active~.home-section {
+            display: block;
+        }
+
+        /* Show the Tags section when the Tags link is active */
+        a[href="#Tags"]:active~.Tags-section {
+            display: block;
+        }
+
+        .page2 {
+            display: none;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-left: 100px;
+        }
+
+        .top-bar h2,
+        .ask-btn {
+            margin-right: 10px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .tag1 {
+            border: 1px solid #000;
+            padding: 5px;
+            margin: 5px;
+            width: calc(23.33% - 10px);
+            /* 3 tags per row */
+            box-sizing: border-box;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+
+        .ask-btn {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .section1 {
+            display: flex;
+            flex: 0.1;
+            /* Just for visualization */
+            flex-direction: column;
+        }
+
+        .questions {
+            display: flex;
+            flex: 1;
+            /* Just for visualization */
+        }
+
+        .section2 {
+            flex: 0.5;
+            /* Just for visualization */
+        }
+
+        .section3 {
+            flex: 0.1;
+            /* Just for visualization */
+        }
+
+        .section4 {
+            flex: 0.2;
+            /* Just for visualization */
+        }
+
+        .tag-top {
+            color: red;
+        }
+    </style>
+</head>
+<script>
+    function showTagsContent() {
+        document.getElementById("Tags-content").style.display = "block";
+        document.getElementById("content").style.display = "none";
+        toggleActiveClass("home", false);
+        toggleActiveClass("Tags", true);
+    }
+
+    function showHomeContent() {
+        document.getElementById("Tags-content").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        toggleActiveClass("home", true);
+        toggleActiveClass("Tags", false);
+    }
+
+    function toggleActiveClass(elementId, setActive) {
+        var element = document.getElementById(elementId);
+        if (setActive) {
+            element.classList.add("active");
+        } else {
+            element.classList.remove("active");
+        }
+    }
+
+</script>
+
+<body>
+
+    <div class="top-banner">
+        <div class="title">Stack Overflow</div>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search...">
+            <button class="search-button">Search</button>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a onclick="showHomeContent()" href="#home" id="home">Home</a>
+        <a onclick="showTagsContent()" id="Tags">Tags</a>
+
+    </div>
+
+
+    <div id="Tags-content" style="display: none;position: absolute; right: 0; width: 70%; margin-right: 10em;">
+
+        <div class="top-bar">
+            <h2>4 Tags</h2>
+            <h2>All Tags</h2>
+            <button class="ask-btn">Ask a Question</button>
+        </div>
+        <div class="tags">
+
+            <div class="tag1 ">
+                <p class="tag-top">Shared Preference</p><br>1 question
+            </div>
+            <div class="tag1">
+                <p class="tag-top">javascript</p><br>2 questions
+            </div>
+            <div class="tag1">
+                <p class="tag-top">Javascript</p><br>2 questions
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <main class="content-wrapper" id="content">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="title">All Questions</div>
+                <button class="ask-btn">Ask a Question</button>
+            </div>
+
+            <div class="content">
+                <div class="question-count">2 questions</div>
+
+                <div class="action-buttons">
+                    <button class="action-button">Newest</button>
+                    <button class="action-button">Active</button>
+                    <button class="action-button">Unanswered</button>
+                </div>
+
+
+
+            </div>
+
+            <div class="container">
+
+                <div class="section1">
+                    <span>3 answers</span>
+                    <span>121 Views</span>
+                </div>
+
+                <div class="section2">
+                    <div class="title">android studio save string shared preference, start activity and load the
+                        saved
+                        string</div>
+                    <div class="tags">
+                        <span class="tag">android-studio</span>
+                        <span class="tag">shared-preferences</span>
+                        <span class="tag">javascript</span>
+                    </div>
+                </div>
+                <div class="section3">
+                    <div class="title">saltyPeter</div>
+
+                </div>
+                <div class="section4">
+                    <div class="title">asked Dec 17, 2020 at 03:24:00</div>
+
+                </div>
+
+
+
+            </div>
+
+            <div class="container">
+
+                <div class="section1">
+                    <span>3 answers</span>
+                    <span>121 Views</span>
+                </div>
+
+                <div class="section2">
+                    <div class="title">android studio save string shared preference, start activity and load the
+                        saved
+                        string</div>
+
+                    <div class="tags">
+                        <span class="tag">android-studio</span>
+                        <span class="tag">shared-preferences</span>
+                        <span class="tag">javascript</span>
+                    </div>
+                </div>
+                <div class="section3">
+                    <div class="title">saltyPeter</div>
+
+                </div>
+                <div class="section4">
+                    <div class="title">asked Dec 17, 2020 at 03:24:00</div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </main>
+
+
+</body>
+
+</html>
